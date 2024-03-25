@@ -3,7 +3,6 @@ const taskadd=document.getElementById('taskadd');
 const contains=document.getElementById('contains');
 const activetasks=document.getElementById('activetasks');
 
-// let totaltasks=[];
 let totalactivetasks=0;
 
 taskadd.addEventListener('click',(e)=>{
@@ -24,6 +23,7 @@ taskadd.addEventListener('click',(e)=>{
         litask.appendChild(taskdiv);
         contains.appendChild(litask);
         totalactivetasks++;
+        activetasks.innerHTML=`Activetask:-${totalactivetasks}`;
 
         let deletelogo=document.createElement('span');
         deletelogo.innerHTML="\u00d7";
@@ -31,19 +31,30 @@ taskadd.addEventListener('click',(e)=>{
 
         deletelogo.addEventListener('click',()=>{
             litask.remove();
-            totalactivetasks--;
+            if (taskdiv.style.backgroundColor!=='lightcoral') {
+                totalactivetasks--;
+            }
             activetasks.innerHTML=`Activetask:-${totalactivetasks}`;
         })
 
         taskdiv.addEventListener('dblclick',()=>{
             taskdiv.style.backgroundColor='lightcoral';
+            totalactivetasks--;
+            activetasks.innerHTML=`Activetask:-${totalactivetasks}`;
         })
 
-        taskdiv.addEventListener('click',()=>{
-            taskdiv.style.backgroundColor=`rgba(185, 238, 144, 0.865)`;
-        })
+        taskdiv.addEventListener('click', () => {
+            if (taskdiv.style.backgroundColor==='lightcoral') {
+                taskdiv.style.backgroundColor=`rgba(185, 238, 144, 0.865)`;
+                totalactivetasks++;
+                activetasks.innerHTML=`Activetask:-${totalactivetasks}`;
+            }
+        });
 
-        activetasks.innerHTML=`Activetask:-${totalactivetasks}`;
+        // taskdiv.addEventListener('click',()=>{            
+        //     taskdiv.style.backgroundColor=`rgba(185, 238, 144, 0.865)`;
+            
+        // })
 
        task.value=``;
 
