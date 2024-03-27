@@ -18,11 +18,10 @@ body{
     min-width: 30vw;
     max-width:60vw;
     min-height: 25vh;
-    max-height: 55vh;
+    max-height: 70vh;
     background-color: #fff;
     border-radius: 8px;
     flex-direction: column;
-
 }
 
 .title{
@@ -93,7 +92,7 @@ button:hover{
 }
 
 .contains{
-    max-height: 30vh;
+    max-height: 45vh;
     margin: 1vh 1vw;
     padding: 1vh 1vw;
     overflow: auto;
@@ -138,4 +137,3 @@ h6{
     border-radius: 5px;
     word-wrap: break-word;
 }
-

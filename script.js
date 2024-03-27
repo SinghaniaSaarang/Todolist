@@ -16,6 +16,10 @@ taskadd.addEventListener('click',(e)=>{
         alert("No tasks added");
     }else{
 
+        if(contains.innerHTML===`<h2>No tasks</h2>`){
+            contains.innerHTML='';
+        }
+        contains.classList.remove('loading');
         let litask=document.createElement('div');
         litask.id='litask';
         let taskdiv=document.createElement('div');
@@ -80,17 +84,37 @@ function removeFromTotaltasks(task){
 
 activetasks.addEventListener('click',()=>{
 
+    contains.innerHTML=`<h2>Loading</h2>`;
+
     if(activetasks.innerText==='all'){
-        contains.innerHTML='';
-        totaltasks.forEach(item=>{
-            contains.appendChild(item);
-        })
+        if(totaltasks.length>0){
+            setTimeout(()=>{
+             contains.innerHTML='';
+             totaltasks.forEach(item=>{
+                 contains.appendChild(item);
+             })
+            },1000) 
+         }else{
+             setTimeout(()=>{
+                 contains.innerHTML=`<h2>No tasks</h2>`;
+             },1000) 
+         }
         activetasks.innerText=`Activetask:-${totalactivetasks}`;
     }else{
-        contains.innerHTML='';
-        totalgreentasks.forEach(item=>{
-            contains.appendChild(item);
-        })
+        
+
+        if(totalgreentasks.length>0){
+           setTimeout(()=>{
+            contains.innerHTML='';
+            totalgreentasks.forEach(item=>{
+                contains.appendChild(item);
+            })
+           },1000) 
+        }else{
+            setTimeout(()=>{
+                contains.innerHTML=`<h2>No remaining tasks</h2>`;
+            },1000) 
+        }
         activetasks.innerText='all';
     }
 })
