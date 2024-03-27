@@ -4,10 +4,11 @@ const contains=document.getElementById('contains');
 const activetasks=document.getElementById('activetasks');
 
 let totalactivetasks=0;
+let totalgreentasks=[];
+let totaltasks=[];
 
 taskadd.addEventListener('click',(e)=>{
     e.preventDefault();
-    console.log('button pressed');
 
     let inputvalue=task.value.trim();
 
@@ -23,40 +24,73 @@ taskadd.addEventListener('click',(e)=>{
         litask.appendChild(taskdiv);
         contains.appendChild(litask);
         totalactivetasks++;
-        activetasks.innerHTML=`Activetask:-${totalactivetasks}`;
+        activetasks.innerText=`Activetask:-${totalactivetasks}`;
 
         let deletelogo=document.createElement('span');
         deletelogo.innerHTML="\u00d7";
         litask.appendChild(deletelogo);
 
+        totalgreentasks.push(litask);
+        totaltasks.push(litask);
+
         deletelogo.addEventListener('click',()=>{
             litask.remove();
             if (taskdiv.style.backgroundColor!=='lightcoral') {
                 totalactivetasks--;
+                removeFromTotalGreen(litask);
             }
-            activetasks.innerHTML=`Activetask:-${totalactivetasks}`;
+            removeFromTotaltasks(litask);
+            activetasks.innerText=`Activetask:-${totalactivetasks}`;
         })
 
         taskdiv.addEventListener('dblclick',()=>{
             taskdiv.style.backgroundColor='lightcoral';
             totalactivetasks--;
-            activetasks.innerHTML=`Activetask:-${totalactivetasks}`;
+            activetasks.innerText=`Activetask:-${totalactivetasks}`;
+            removeFromTotalGreen(litask);
         })
 
         taskdiv.addEventListener('click', () => {
             if (taskdiv.style.backgroundColor==='lightcoral') {
                 taskdiv.style.backgroundColor=`rgba(185, 238, 144, 0.865)`;
                 totalactivetasks++;
-                activetasks.innerHTML=`Activetask:-${totalactivetasks}`;
+                activetasks.innerText=`Activetask:-${totalactivetasks}`;
+                totalgreentasks.push(litask);
             }
         });
 
-        // taskdiv.addEventListener('click',()=>{            
-        //     taskdiv.style.backgroundColor=`rgba(185, 238, 144, 0.865)`;
-            
-        // })
-
        task.value=``;
 
+    }
+})
+
+function removeFromTotalGreen(task) {
+    const index = totalgreentasks.indexOf(task);
+    if (index !== -1) {
+        totalgreentasks.splice(index, 1);
+    }
+}
+
+function removeFromTotaltasks(task){
+    const index = totaltasks.indexOf(task);
+    if (index !== -1) {
+        totaltasks.splice(index, 1);
+    }
+}
+
+activetasks.addEventListener('click',()=>{
+
+    if(activetasks.innerText==='all'){
+        contains.innerHTML='';
+        totaltasks.forEach(item=>{
+            contains.appendChild(item);
+        })
+        activetasks.innerText=`Activetask:-${totalactivetasks}`;
+    }else{
+        contains.innerHTML='';
+        totalgreentasks.forEach(item=>{
+            contains.appendChild(item);
+        })
+        activetasks.innerText='all';
     }
 })

@@ -104,6 +104,10 @@ button:hover{
 
 h6{
     margin-right: auto 0;
+    background-color: #ff5c5c;
+    padding: 1vh 1vw;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 #litask{
@@ -134,3 +138,4 @@ h6{
     border-radius: 5px;
     word-wrap: break-word;
 }
+
